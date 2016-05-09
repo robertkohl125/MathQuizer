@@ -1,0 +1,70 @@
+indexes:
+
+- kind: Profile
+  properties:
+  - name: wishlistSessionKeys
+  - name: user_id
+
+- kind: Conference
+  properties:
+  - name: city
+  - name: name
+
+- kind: Conference
+  properties:
+  - name: topics
+  - name: name
+
+- kind: Conference
+  properties:
+  - name: month
+  - name: name
+
+- kind: Conference
+  properties:
+  - name: maxAttendees
+  - name: name
+
+- kind: Session
+  properties:
+  - name: speaker
+  - name: name
+
+- kind: Session
+  properties:
+  - name: startTime
+  - name: name
+
+- kind: Session
+  properties:
+  - name: typeOfSession
+  - name: name
+
+- kind: Session
+  properties:
+  - name: date
+  - name: name
+
+- kind: Session
+  properties:
+  - name: location
+  - name: name
+
+- kind: Session
+  properties:
+  - name: date
+  - name: startTime
+  - name: location
+
+
+# Used in the logic that generates announcements
+- kind: Conference
+  properties:
+  - name: seatsAvailable
+  - name: name
+
+# Used in the logic that creates a featured speaker
+- kind: Session
+  properties:
+  - name: speaker
+  - name: name
