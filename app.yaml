@@ -32,7 +32,7 @@ handlers:
 
 
 # Add announcement using memcache.
-- url: /crons/set_announcement
+- url: /crons/welcome
   script: main.app
   login: admin
 

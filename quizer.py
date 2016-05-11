@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-__author__ = 'robertkohl125@gmail.com (Robert Kohl'
+__author__ = 'robertkohl125@gmail.com (Robert Kohl)'
 
 
 from datetime import datetime
@@ -15,22 +15,6 @@ from google.appengine.api import memcache
 from google.appengine.api import taskqueue
 from google.appengine.ext import ndb
 
-from models import Profile
-from models import ProfileMiniForm
-from models import ProfileForm
-from models import TeeShirtSize
-from models import Conference
-from models import ConferenceForm
-from models import ConferenceForms
-from models import QueryForm
-from models import QueryForms
-from models import BooleanMessage
-from models import ConflictException
-from models import StringMessage
-from models import TypeOfSession
-from models import Session
-from models import SessionForm
-from models import SessionForms
 from models import WishlistForm
 
 from utils import getUserId
@@ -1203,5 +1187,5 @@ class ConferenceApi(remote.Service):
 
 
 # registers API
-api = endpoints.api_server([ConferenceApi]) 
+api = endpoints.api_server([QuizerApi]) 
 

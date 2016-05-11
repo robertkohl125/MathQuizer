@@ -1,7 +1,7 @@
 import webapp2
 from google.appengine.api import app_identity
 from google.appengine.api import mail
-from conference import ConferenceApi
+from quizer import QuizerApi
 from models import Session
 from google.appengine.api import memcache
 from google.appengine.api import taskqueue

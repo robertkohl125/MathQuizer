@@ -17,13 +17,6 @@ from google.appengine.ext import ndb
 from google.appengine.ext.ndb import msgprop
 
 
-class TypeOfSession(messages.Enum):
-    """SessionType -- session type enumeration value"""
-    Workshop = 1
-    Lecture = 2
-    Keynote = 3
-
-
 # Define the Profile Kind
 class Profile(ndb.Model):
     """Profile -- User profile object"""
@@ -35,7 +28,18 @@ class Profile(ndb.Model):
     wishlistSessionKeys = ndb.StringProperty(repeated=True)
 
 
-# Define the Conference Kind
+# Define the Student Kind
+class Student(ndb.Model):
+    """Profile -- User profile object"""
+    user_id             = ndb.StringProperty()
+    displayName         = ndb.StringProperty()
+    mainEmail           = ndb.StringProperty()
+    teeShirtSize        = ndb.StringProperty(default='NOT_SPECIFIED')
+    conferenceKeysToAttend = ndb.StringProperty(repeated=True)
+    wishlistSessionKeys = ndb.StringProperty(repeated=True)
+
+
+# Define the Score Kind
 class Conference(ndb.Model):
     """Conference -- Conference object"""
     name                = ndb.StringProperty(required=True)
