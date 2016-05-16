@@ -26,20 +26,6 @@ API_EXPLORER_CLIENT_ID = endpoints.API_EXPLORER_CLIENT_ID
 MEMCACHE_ANNOUNCEMENTS_KEY = "RECENT ANNOUNCEMENTS"
 MEMCACHE_SPEAKER_KEY = "FEATURED_SPEAKER"
 
-CONF_GET_REQUEST = endpoints.ResourceContainer(
-    message_types.VoidMessage,
-    websafeConferenceKey=messages.StringField(1),
-    )
-
-CONF_POST_REQUEST = endpoints.ResourceContainer(
-    ConferenceForm,
-    websafeConferenceKey=messages.StringField(1),
-    )
-
-SESS_GET_REQUEST = endpoints.ResourceContainer(
-    message_types.VoidMessage,
-    websafeConferenceKey=messages.StringField(1, required=True)
-    )
 
 WISHLIST_DEL_REQUEST = endpoints.ResourceContainer(
     message_types.VoidMessage,
@@ -50,13 +36,6 @@ WISHLIST_POST_REQUEST = endpoints.ResourceContainer(
     message_types.VoidMessage,
     websafeSessionKey=messages.StringField(1)
     )
-
-DEFAULTS = {
-    "city": "Default City",
-    "maxAttendees": 0,
-    "seatsAvailable": 0,
-    "topics": [ "Default", "Topic" ],
-    }
 
 OPERATORS = {
     'EQ':   '=',
@@ -79,18 +58,15 @@ SFIELDS = {
     }
 
 
-# - - - Main Class and Endpoint defined - - - - - - - - - - - - - - - - - - - -
-
-
 @endpoints.api(
-    name='conference', 
+    name='mathQuizer', 
     version='v1', 
     allowed_client_ids=[WEB_CLIENT_ID, 
     API_EXPLORER_CLIENT_ID], 
     scopes=[EMAIL_SCOPE]
     )
-class ConferenceApi(remote.Service):
-    """Conference API v0.2
+class QuizerApi(remote.Service):
+    """MathQuizer API v0.1
     """
 
 
@@ -105,15 +81,8 @@ class ConferenceApi(remote.Service):
         pf = ProfileForm()
         for field in pf.all_fields():
             if hasattr(prof, field.name):
-
-                # convert t-shirt string to Enum; just copy others
-                if field.name == 'teeShirtSize':
-                    setattr(pf, field.name, 
-                        getattr(TeeShirtSize, 
-                        getattr(prof, field.name)))
-                else:
-                    setattr(pf, field.name, 
-                        getattr(prof, field.name))
+                setattr(pf, field.name, 
+                    getattr(prof, field.name))
         pf.check_initialized()
         return pf
 
@@ -138,8 +107,7 @@ class ConferenceApi(remote.Service):
             profile = Profile(
                 key = p_key,
                 displayName = user.nickname(), 
-                mainEmail= user.email(),
-                teeShirtSize = str(TeeShirtSize.NOT_SPECIFIED))
+                mainEmail= user.email())
             profile.put()
 
         # return Profile
@@ -155,17 +123,11 @@ class ConferenceApi(remote.Service):
 
         # if saveProfile(), process user-modifyable fields
         if save_request:
-            for field in ('displayName', 'teeShirtSize'):
+            for field in ('displayName'):
                 if hasattr(save_request, field):
                     val = getattr(save_request, field)
                     if val:
-                        setattr(prof, field, 
-                            str(val))
-                        if field == 'teeShirtSize':
-                            setattr(prof, field, 
-                                str(val).upper())
-                        else:
-                            setattr(prof, field, val)
+                        setattr(prof, field, str(val))
                         prof.put()
         return self._copyProfileToForm(prof)
 
